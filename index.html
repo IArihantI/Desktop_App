@@ -1,16 +1,24 @@
 <!DOCTYPE html>
 <html>
    <head>
-      <title>Description About OS Module</title>
+      <title>net Module</title>
    </head>
    
    <body>
       <script>
-         let os = require('os')
-         document.write('User Info: ' + JSON.stringify(os.userInfo()) + '<br>' + 
-            'Platform: ' + os.platform() + '<br>' + 
-            'User home directory: ' +  os.homedir() + '<br>' + 
-            'OS Architecture: ' + os.arch() + '<br>')
+         var net = require('net');
+         var client = net.connect({port: 8080}, function() {
+            console.log('Connection established!');  
+         });
+         
+         client.on('data', function(data) {
+            document.write(data.toString());
+            client.end();
+         });
+         
+         client.on('end', function() { 
+            console.log('Disconnected :(');
+         });
       </script>
    </body>
 </html>
